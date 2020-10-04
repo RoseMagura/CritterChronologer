@@ -1,7 +1,7 @@
 package com.udacity.critter.schedule;
 
 
-import com.udacity.critter.user.EmployeeSkill;
+import com.udacity.critter.user.employee.EmployeeSkill;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.udacity.critter.user;
+package com.udacity.critter.user.customer;
 
 import java.util.List;
 

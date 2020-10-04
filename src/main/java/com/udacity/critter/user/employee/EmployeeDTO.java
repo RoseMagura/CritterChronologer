@@ -1,4 +1,4 @@
-package com.udacity.critter.user;
+package com.udacity.critter.user.employee;
 
 import java.time.DayOfWeek;
 import java.util.Set;

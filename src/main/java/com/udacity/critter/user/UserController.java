@@ -1,12 +1,17 @@
 package com.udacity.critter.user;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.udacity.critter.user.customer.Customer;
+import com.udacity.critter.user.customer.CustomerDTO;
+import com.udacity.critter.user.customer.CustomerService;
+import com.udacity.critter.user.employee.Employee;
+import com.udacity.critter.user.employee.EmployeeDTO;
+import com.udacity.critter.user.employee.EmployeeRequestDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +27,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    CustomerService customerService;
+
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
          Customer customer = userService.saveCustomer(convertCustomerDTOToEntity(customerDTO));
@@ -30,7 +38,16 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        throw new UnsupportedOperationException();
+//        List<User> users = userService.getAllCustomers();
+        List<Customer> customers = customerService.getAllCustomers();
+//        throw new UnsupportedOperationException();
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+
+        customers.forEach((customer) -> {
+            System.out.println(customer);
+            customerDTOS.add(convertEntityToCustomerDTO(customer));
+        });
+        return customerDTOS;
     }
 
     @GetMapping("/customer/pet/{petId}")
@@ -58,8 +75,6 @@ public class UserController {
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
         throw new UnsupportedOperationException();
     }
-
-
 
     private static Customer convertCustomerDTOToEntity(CustomerDTO customerDTO){
         Customer customer = new Customer();

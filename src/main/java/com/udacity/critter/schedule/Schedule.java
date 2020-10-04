@@ -2,8 +2,8 @@ package com.udacity.critter.schedule;
 
 
 import com.udacity.critter.pet.Pet;
-import com.udacity.critter.user.Employee;
-import com.udacity.critter.user.EmployeeSkill;
+import com.udacity.critter.user.employee.Employee;
+import com.udacity.critter.user.employee.EmployeeSkill;
 
 
 import javax.persistence.*;

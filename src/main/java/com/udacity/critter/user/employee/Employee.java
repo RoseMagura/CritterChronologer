@@ -1,16 +1,15 @@
-package com.udacity.critter.user;
+package com.udacity.critter.user.employee;
 
 
 
 import com.udacity.critter.schedule.Schedule;
+import com.udacity.critter.user.User;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-//@Table(name = "user")
 public class Employee extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "skills",joinColumns = @JoinColumn(name = "employee_id"))
@@ -21,7 +20,7 @@ public class Employee extends User {
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
-
+//    public Employee(){}
 //    public Employee(Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable, Schedule schedule) {
 //        this.skills = skills;
 //        this.daysAvailable = daysAvailable;
