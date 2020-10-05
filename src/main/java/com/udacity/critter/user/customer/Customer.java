@@ -16,12 +16,12 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer")
     private Set<Pet> pets;
 
-//    public Customer() {}
-//    public Customer(String phoneNumber, String notes, Set<Pet> pets) {
-//        this.phoneNumber = phoneNumber;
-//        this.notes = notes;
-//        this.pets = pets;
-//    }
+    public Customer() {}
+    public Customer(String phoneNumber, String notes, Set<Pet> pets) {
+        this.phoneNumber = phoneNumber;
+        this.notes = notes;
+        this.pets = pets;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

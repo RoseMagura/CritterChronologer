@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 public class Employee extends User {
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "skills",joinColumns = @JoinColumn(name = "employee_id"))
+    @CollectionTable(name = "skills", joinColumns = @JoinColumn(name = "employee_id"))
     @Enumerated(EnumType.STRING)
     private Set<EmployeeSkill> skills;
     @ElementCollection
@@ -20,12 +20,13 @@ public class Employee extends User {
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
-//    public Employee(){}
-//    public Employee(Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable, Schedule schedule) {
-//        this.skills = skills;
-//        this.daysAvailable = daysAvailable;
-//        this.schedule = schedule;
-//    }
+
+    public Employee(){}
+    public Employee(Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable, Schedule schedule) {
+        this.skills = skills;
+        this.daysAvailable = daysAvailable;
+        this.schedule = schedule;
+    }
 
     public Schedule getSchedule() {
         return schedule;

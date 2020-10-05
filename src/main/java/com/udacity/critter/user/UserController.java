@@ -3,14 +3,13 @@ package com.udacity.critter.user;
 import com.udacity.critter.user.customer.Customer;
 import com.udacity.critter.user.customer.CustomerDTO;
 import com.udacity.critter.user.customer.CustomerService;
-import com.udacity.critter.user.employee.Employee;
-import com.udacity.critter.user.employee.EmployeeDTO;
-import com.udacity.critter.user.employee.EmployeeRequestDTO;
+import com.udacity.critter.user.employee.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -25,26 +24,22 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
+    EmployeeService employeeService;
 
     @Autowired
     CustomerService customerService;
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-         Customer customer = userService.saveCustomer(convertCustomerDTOToEntity(customerDTO));
+         Customer customer = customerService.saveCustomer(convertCustomerDTOToEntity(customerDTO));
         return convertEntityToCustomerDTO(customer);
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-//        List<User> users = userService.getAllCustomers();
         List<Customer> customers = customerService.getAllCustomers();
-//        throw new UnsupportedOperationException();
         List<CustomerDTO> customerDTOS = new ArrayList<>();
-
         customers.forEach((customer) -> {
-            System.out.println(customer);
             customerDTOS.add(convertEntityToCustomerDTO(customer));
         });
         return customerDTOS;
@@ -57,23 +52,37 @@ public class UserController {
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = userService.saveEmployee(convertEmployeeDTOToEntity(employeeDTO));
+        Employee employee = employeeService.saveEmployee(convertEmployeeDTOToEntity(employeeDTO));
         return convertEntityToEmployeeDTO(employee);
     }
 
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        return convertEntityToEmployeeDTO(employeeService.getEmployee(employeeId));
+//        throw new UnsupportedOperationException();
     }
 
     @PutMapping("/employee/{employeeId}")
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        employeeService.updateSchedule(daysAvailable, employeeId);
+        System.out.println(employeeService.getEmployee(employeeId).getDaysAvailable());
+//        throw new UnsupportedOperationException();
     }
 
     @GetMapping("/employee/availability")
-    public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+    public
+//    List<EmployeeDTO>
+    void
+    findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
+//        throw new UnsupportedOperationException();
+        EmployeeRequest employeeRequest = convertEmployeeRequestDTOToEntity(employeeDTO);
+        LocalDate date = employeeRequest.getDate();
+        List<Employee> availableEmployees = employeeService.getAvailableEmployees(date.getDayOfWeek());
+       availableEmployees.forEach((employee) -> System.out.println(employee.getSkills()));
+//                employeeService.findBySkillsAndAvailability(employeeRequest.getSkills(), employeeRequest.getDate());
+//        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+//        availableEmployees.forEach((employee) -> employeeDTOS.add(convertEntityToEmployeeDTO(employee)));
+//        return employeeDTOS;
     }
 
     private static Customer convertCustomerDTOToEntity(CustomerDTO customerDTO){
@@ -86,6 +95,12 @@ public class UserController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
         return employee;
+    }
+
+    private static EmployeeRequest convertEmployeeRequestDTOToEntity(EmployeeRequestDTO employeeDTO){
+        EmployeeRequest employeeRequest = new EmployeeRequest();
+        BeanUtils.copyProperties(employeeDTO, employeeRequest);
+        return employeeRequest;
     }
 
     private static CustomerDTO convertEntityToCustomerDTO(Customer customer){

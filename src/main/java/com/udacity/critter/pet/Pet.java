@@ -19,9 +19,7 @@ public class Pet {
     private LocalDate birthDate;
     private String notes;
 
-    public Pet() {
-
-    }
+    public Pet() {}
 
     public Pet(PetType type, String name, LocalDate birthDate, String notes) {
         this.type = type;

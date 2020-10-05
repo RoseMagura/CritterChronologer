@@ -1,5 +1,6 @@
 package com.udacity.critter.user.employee;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -8,6 +9,9 @@ import java.util.Set;
  * to the database directly.
  */
 public class EmployeeRequestDTO {
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "skills", joinColumns = @JoinColumn(name = "employee_id"))
+    @Enumerated(EnumType.STRING)
     private Set<EmployeeSkill> skills;
     private LocalDate date;
 
@@ -25,5 +29,13 @@ public class EmployeeRequestDTO {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeRequestDTO{" +
+                "skills=" + skills +
+                ", date=" + date +
+                '}';
     }
 }
