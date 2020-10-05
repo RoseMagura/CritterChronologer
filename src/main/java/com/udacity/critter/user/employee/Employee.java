@@ -4,6 +4,7 @@ package com.udacity.critter.user.employee;
 
 import com.udacity.critter.schedule.Schedule;
 import com.udacity.critter.user.User;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
@@ -15,7 +16,9 @@ public class Employee extends User {
     @CollectionTable(name = "skills", joinColumns = @JoinColumn(name = "employee_id"))
     @Enumerated(EnumType.STRING)
     private Set<EmployeeSkill> skills;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "employee_days_available", joinColumns = @JoinColumn(name = "employee_id"))
+    @Enumerated(EnumType.STRING)
     private Set<DayOfWeek> daysAvailable;
     @ManyToOne
     @JoinColumn(name = "schedule_id")

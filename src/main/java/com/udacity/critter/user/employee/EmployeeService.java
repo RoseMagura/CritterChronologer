@@ -35,8 +35,9 @@ public class EmployeeService {
 
     public void updateSchedule(Set<DayOfWeek> daysAvailable, long employeeId){
         Employee employee = employeeRepository.getOne(employeeId);
-        System.out.println(employee.getName());
         employee.setDaysAvailable(daysAvailable);
+        System.out.println("from service: " + employee.getDaysAvailable());
+        employeeRepository.save(employee);
     }
 //    private static final String FIND_EMPLOYEE_BY_SKILLS_AND_AVAILABILITY =
 //            "select e from Employee e where e.skills = :skills ";

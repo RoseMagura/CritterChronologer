@@ -65,8 +65,8 @@ public class UserController {
     @PutMapping("/employee/{employeeId}")
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
         employeeService.updateSchedule(daysAvailable, employeeId);
+        System.out.println(employeeService.getEmployee(employeeId).getName());
         System.out.println(employeeService.getEmployee(employeeId).getDaysAvailable());
-//        throw new UnsupportedOperationException();
     }
 
     @GetMapping("/employee/availability")
@@ -77,8 +77,13 @@ public class UserController {
 //        throw new UnsupportedOperationException();
         EmployeeRequest employeeRequest = convertEmployeeRequestDTOToEntity(employeeDTO);
         LocalDate date = employeeRequest.getDate();
+//        Employee employee = employeeService.getEmployee(1);
+//        System.out.println(employee.getDaysAvailable());
+//        System.out.println(employee.getDaysAvailable().contains(date.getDayOfWeek()));
+//        System.out.println(date.getDayOfWeek());
         List<Employee> availableEmployees = employeeService.getAvailableEmployees(date.getDayOfWeek());
-       availableEmployees.forEach((employee) -> System.out.println(employee.getSkills()));
+        System.out.println(availableEmployees.size());
+        availableEmployees.forEach((employee) -> System.out.println(employee.getSkills()));
 //                employeeService.findBySkillsAndAvailability(employeeRequest.getSkills(), employeeRequest.getDate());
 //        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
 //        availableEmployees.forEach((employee) -> employeeDTOS.add(convertEntityToEmployeeDTO(employee)));
