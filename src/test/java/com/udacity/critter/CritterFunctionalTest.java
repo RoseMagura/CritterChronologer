@@ -91,7 +91,7 @@ public class CritterFunctionalTest {
         Assertions.assertTrue(retrievedCustomer.getPetIds() != null && retrievedCustomer.getPetIds().size() > 0);
         Assertions.assertEquals(retrievedCustomer.getPetIds().get(0), retrievedPet.getId());
     }
-    // TODO
+    // TODO: testFindPetsByOwner()
     @Test
     public void testFindPetsByOwner() {
         CustomerDTO customerDTO = createCustomerDTO();
@@ -109,7 +109,7 @@ public class CritterFunctionalTest {
         Assertions.assertEquals(pets.get(0).getOwnerId(), newCustomer.getId());
         Assertions.assertEquals(pets.get(0).getId(), newPet.getId());
     }
-//  // TODO
+//   TODO: testFindOwnerByPet()
     @Test
     public void testFindOwnerByPet() {
         CustomerDTO customerDTO = createCustomerDTO();
@@ -163,7 +163,7 @@ public class CritterFunctionalTest {
         Set<Long> eIds1 = userController.findEmployeesForService(er1).stream().map(EmployeeDTO::getId).collect(Collectors.toSet());
         Set<Long> eIds1expected = Sets.newHashSet(emp1n.getId(), emp2n.getId());
         Assertions.assertEquals(eIds1, eIds1expected);
-        
+
         //make a request that matches only employee 3
         EmployeeRequestDTO er2 = new EmployeeRequestDTO();
         er2.setDate(LocalDate.of(2019, 12, 27)); //friday
@@ -173,7 +173,7 @@ public class CritterFunctionalTest {
         Set<Long> eIds2expected = Sets.newHashSet(emp3n.getId());
         Assertions.assertEquals(eIds2, eIds2expected);
     }
-// TODO
+// TODO: testSchedulePetsForServiceWithEmployee()
     @Test
     public void testSchedulePetsForServiceWithEmployee() {
         EmployeeDTO employeeTemp = createEmployeeDTO();
@@ -197,7 +197,7 @@ public class CritterFunctionalTest {
         Assertions.assertEquals(scheduleDTO.getEmployeeIds(), employeeList);
         Assertions.assertEquals(scheduleDTO.getPetIds(), petList);
     }
-// TODO
+// TODO: testFindScheduleByEntities()
     @Test
     public void testFindScheduleByEntities() {
         ScheduleDTO sched1 = populateSchedule(1, 2, LocalDate.of(2019, 12, 25), Sets.newHashSet(EmployeeSkill.FEEDING, EmployeeSkill.WALKING));

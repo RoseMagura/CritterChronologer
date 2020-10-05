@@ -73,9 +73,15 @@ public class UserController {
         LocalDate date = employeeRequest.getDate();
         List<Employee> availableEmployees = employeeService.getAvailableEmployees(date.getDayOfWeek());
         List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+        Set<EmployeeSkill> requestedSkills = employeeRequest.getSkills();
         availableEmployees.forEach((employee) -> {
-            if(employee.getSkills().equals(employeeRequest.getSkills())){
+            if(requestedSkills.size() > 1){
+            if(employee.getSkills().equals(requestedSkills)){
                 employeeDTOS.add(convertEntityToEmployeeDTO(employee));
+            }} else {
+                if (employee.getSkills().contains(requestedSkills.iterator().next())) {
+                    employeeDTOS.add(convertEntityToEmployeeDTO(employee));
+                }
             }
         });
         return employeeDTOS;
