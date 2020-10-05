@@ -18,9 +18,6 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @Autowired
-    EntityManager entityManager;
-
     public Employee saveEmployee(Employee employee){
         return employeeRepository.save(employee);
     }
@@ -36,16 +33,6 @@ public class EmployeeService {
     public void updateSchedule(Set<DayOfWeek> daysAvailable, long employeeId){
         Employee employee = employeeRepository.getOne(employeeId);
         employee.setDaysAvailable(daysAvailable);
-        System.out.println("from service: " + employee.getDaysAvailable());
         employeeRepository.save(employee);
     }
-//    private static final String FIND_EMPLOYEE_BY_SKILLS_AND_AVAILABILITY =
-//            "select e from Employee e where e.skills = :skills ";
-//    public List<Employee> findBySkillsAndAvailability(Set<EmployeeSkill> skills, LocalDate day) {
-//        System.out.println("Service: " + skills.toString());
-//        TypedQuery<Employee> query = entityManager.createQuery(FIND_EMPLOYEE_BY_SKILLS_AND_AVAILABILITY, Employee.class);
-//        query.setParameter("skills", skills);
-//        return query.getResultList();
-//    }
-
 }
