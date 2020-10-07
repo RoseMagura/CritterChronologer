@@ -1,6 +1,8 @@
 package com.udacity.critter.pet;
 
 import com.udacity.critter.user.customer.Customer;
+import com.udacity.critter.user.customer.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,9 +23,10 @@ public class Pet {
 
     public Pet() {}
 
-    public Pet(PetType type, String name, LocalDate birthDate, String notes) {
+    public Pet(PetType type, String name, Long ownerId, LocalDate birthDate, String notes) {
         this.type = type;
         this.name = name;
+//        this.customer = ;
         this.birthDate = birthDate;
         this.notes = notes;
     }
@@ -75,4 +78,16 @@ public class Pet {
     public void setId(long id) {
         this.id = id;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Pet{" +
+//                "id=" + id +
+//                ", type=" + type +
+//                ", name='" + name + '\'' +
+//                ", customer=" + customer +
+//                ", birthDate=" + birthDate +
+//                ", notes='" + notes + '\'' +
+//                '}';
+//    }
 }

@@ -3,6 +3,7 @@ package com.udacity.critter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.sun.xml.bind.v2.TODO;
+import com.udacity.critter.pet.Pet;
 import com.udacity.critter.pet.PetController;
 import com.udacity.critter.pet.PetDTO;
 import com.udacity.critter.pet.PetType;
@@ -66,7 +67,7 @@ public class CritterFunctionalTest {
         Assertions.assertEquals(newEmployee.getId(), retrievedEmployee.getId());
         Assertions.assertTrue(retrievedEmployee.getId() > 0);
     }
-//    TODO: Finish addPetsToCustomer()
+
     @Test
     public void testAddPetsToCustomer() {
         CustomerDTO customerDTO = createCustomerDTO();
@@ -76,7 +77,7 @@ public class CritterFunctionalTest {
         petDTO.setOwnerId(newCustomer.getId());
         PetDTO newPet = petController.savePet(petDTO);
 
-        //make sure pet contains customer id
+       //make sure pet contains customer id
         PetDTO retrievedPet = petController.getPet(newPet.getId());
         Assertions.assertEquals(retrievedPet.getId(), newPet.getId());
         Assertions.assertEquals(retrievedPet.getOwnerId(), newCustomer.getId());
@@ -91,7 +92,7 @@ public class CritterFunctionalTest {
         Assertions.assertTrue(retrievedCustomer.getPetIds() != null && retrievedCustomer.getPetIds().size() > 0);
         Assertions.assertEquals(retrievedCustomer.getPetIds().get(0), retrievedPet.getId());
     }
-    // TODO: testFindPetsByOwner()
+
     @Test
     public void testFindPetsByOwner() {
         CustomerDTO customerDTO = createCustomerDTO();
