@@ -3,6 +3,7 @@ package com.udacity.critter.user.customer;
 
 
 import com.udacity.critter.pet.Pet;
+import com.udacity.critter.schedule.Schedule;
 import com.udacity.critter.user.User;
 
 import javax.persistence.*;
@@ -16,6 +17,9 @@ public class Customer extends User {
     private String notes;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Pet> pets;
+//    @ManyToOne()
+//    @JoinColumn(name = "schedule_id")
+//    private Schedule schedule;
 
     public Customer() {}
 

@@ -1,5 +1,6 @@
 package com.udacity.critter.pet;
 
+import com.udacity.critter.schedule.Schedule;
 import com.udacity.critter.user.customer.Customer;
 import com.udacity.critter.user.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,17 @@ public class Pet {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
     private Customer customer;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id")
+    Schedule schedule;
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
 
     private LocalDate birthDate;
     private String notes;
@@ -26,7 +38,6 @@ public class Pet {
     public Pet(PetType type, String name, Long ownerId, LocalDate birthDate, String notes) {
         this.type = type;
         this.name = name;
-//        this.customer = ;
         this.birthDate = birthDate;
         this.notes = notes;
     }
@@ -79,15 +90,4 @@ public class Pet {
         this.id = id;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Pet{" +
-//                "id=" + id +
-//                ", type=" + type +
-//                ", name='" + name + '\'' +
-//                ", customer=" + customer +
-//                ", birthDate=" + birthDate +
-//                ", notes='" + notes + '\'' +
-//                '}';
-//    }
 }

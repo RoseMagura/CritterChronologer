@@ -2,6 +2,7 @@ package com.udacity.critter.schedule;
 
 
 import com.udacity.critter.pet.Pet;
+import com.udacity.critter.user.customer.Customer;
 import com.udacity.critter.user.employee.Employee;
 import com.udacity.critter.user.employee.EmployeeSkill;
 
@@ -15,13 +16,16 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+//    @JoinColumn(name = "employee_id")
     private Set<Employee> employees;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pet_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+//    @JoinColumn(name = "pet_id")
     private Set<Pet> pets;
+
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+//    private Set<Customer> customers;
 
     private LocalDate date;
     @ElementCollection
