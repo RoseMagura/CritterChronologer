@@ -9,6 +9,7 @@ import com.udacity.critter.user.employee.EmployeeSkill;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,11 +17,13 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "schedules")
 //    @JoinColumn(name = "employee_id")
     private Set<Employee> employees;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "schedule")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "schedules")
 //    @JoinColumn(name = "pet_id")
     private Set<Pet> pets;
 
@@ -47,12 +50,26 @@ public class Schedule {
         this.employees = employees;
     }
 
+    public void addEmployee(Employee employee) {
+        if(employees == null) {
+            employees = new HashSet<>();
+        }
+        employees.add(employee);
+    }
+
     public Set<Pet> getPets() {
         return pets;
     }
 
     public void setPets(Set<Pet> pets) {
         this.pets = pets;
+    }
+
+    public void addPet(Pet pet) {
+        if (pets == null) {
+            pets = new HashSet<>();
+        }
+        pets.add(pet);
     }
 
     public LocalDate getDate() {
@@ -70,4 +87,16 @@ public class Schedule {
     public void setActivities(Set<EmployeeSkill> activities) {
         this.activities = activities;
     }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "id=" + id +
+                ", employees=" + employees +
+                ", pets=" + pets +
+                ", date=" + date +
+                ", activities=" + activities +
+                '}';
+    }
 }
+

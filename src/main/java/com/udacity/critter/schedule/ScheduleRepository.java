@@ -12,11 +12,8 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     @Query("Select s from Schedule s where :pet member of s.pets")
-    List<Schedule> findByPet(Pet pet);
+    List<Schedule> findAllByPets(Pet pet);
 
     @Query("Select s from Schedule s where :employee member of s.employees")
-    List<Schedule> findByEmployee(Employee employee);
-
-//    @Query("Select s from Schedule s where :customer member of s.customers")
-//    List<Schedule> findByCustomer(Customer customer);
+    List<Schedule> findByEmployees(Employee employee);
 }

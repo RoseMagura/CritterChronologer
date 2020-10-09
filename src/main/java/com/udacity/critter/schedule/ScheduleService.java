@@ -15,7 +15,6 @@ public class ScheduleService {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-
     public List<Schedule> getAll() {
         return scheduleRepository.findAll();
     }
@@ -25,14 +24,14 @@ public class ScheduleService {
     }
 
     public List<Schedule> findByPet(Pet pet) {
-        return scheduleRepository.findByPet(pet);
+        return scheduleRepository.findAllByPets(pet);
     }
 
     public List<Schedule> findByEmployee(Employee employee) {
-        return scheduleRepository.findByEmployee(employee);
+        return scheduleRepository.findByEmployees(employee);
     }
 
-//    public List<Schedule> findByCustomer(Customer customer) {
-//        return scheduleRepository.findByCustomer(customer);
-//    }
+    public Schedule findById(long scheduleId) {
+        return scheduleRepository.getOne(scheduleId);
+    }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Pet {
@@ -18,18 +20,14 @@ public class Pet {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
     private Customer customer;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id")
-    Schedule schedule;
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "pet_schedules",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "schedule_id")
+    )
+//    @JoinColumn(name = "schedule_id")
+    Set<Schedule> schedules;
     private LocalDate birthDate;
     private String notes;
 
@@ -42,6 +40,19 @@ public class Pet {
         this.notes = notes;
     }
 
+    public Set<Schedule> getSchedule() {
+        return schedules;
+    }
+
+//    public void setSchedule(Set<Schedule> schedules) {
+//        this.schedules = schedules;
+//    }
+    public void addSchedule(Schedule schedule) {
+        if(schedules == null) {
+            schedules = new HashSet<>();
+        }
+        schedules.add(schedule);
+    }
     public PetType getType() {
         return type;
     }

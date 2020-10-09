@@ -126,7 +126,7 @@ public class UserController {
         BeanUtils.copyProperties(customer, customerDTO);
         if (customer.getPets() != null) {
             customerDTO.setPetIds(customer.getPets()
-                    .stream().map(pet -> pet.getId()).collect(Collectors.toList()));
+                    .stream().map(Pet::getId).collect(Collectors.toList()));
         }
         return customerDTO;
     }

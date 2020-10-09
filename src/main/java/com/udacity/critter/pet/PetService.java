@@ -20,9 +20,9 @@ public class PetService {
     public Pet savePet(Pet pet) {
         Pet savedPet = petRepository.save(pet);
         Customer customer = savedPet.getCustomer();
-
+        if(customer != null){
         customer.addPet(savedPet);
-        customerRepository.save(customer);
+        customerRepository.save(customer);}
         return savedPet;
     }
 
